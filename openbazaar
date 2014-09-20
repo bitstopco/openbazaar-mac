@@ -40,6 +40,8 @@ else
 
       sudo rm -rf ~/OpenBazaar
 
+      sudo rm -rf /usr/local/bin/openbazaar
+
       echo "Done"
     else
       echo ":)"
