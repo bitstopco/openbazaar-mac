@@ -38,7 +38,7 @@ else
     if [ "$RESP" = "y" ]; then
       echo "Deleting OpenBazaar"
 
-      rm -rf ~/OpenBazaar
+      sudo rm -rf ~/OpenBazaar
 
       echo "Done"
     else
