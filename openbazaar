@@ -1,3 +1,37 @@
 #!/bin/bash
 
-echo "Hello World"
+option=$1
+
+if [ -z "$option" ]
+then
+  echo "Show help"
+else
+
+  if [[ "$option" == "--help" ]] 
+  then
+    echo "im help"
+  fi
+
+  if [[ "$option" == "--run" ]] 
+  then
+    echo "lets rock and roll"
+  fi
+
+  if [[ "$option" == "--stop" ]] 
+  then
+    echo "stop that train"
+  fi
+
+  if [[ "$option" == "--destroy" ]] 
+  then
+    
+    read -p "You are about to delete OpenBazaar from your computer, everything will de lost. Are you Sure you want to do this? (y/n) " RESP
+    if [ "$RESP" = "y" ]; then
+      echo "Deleting OpenBazaar"
+    else
+      echo ":)"
+    fi
+
+  fi
+
+fi

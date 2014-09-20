@@ -17,5 +17,7 @@ else
 
   ./configure.sh
 
+  ln -s openbazaar /usr/local/bin/openbazaar
+
 fi
 
