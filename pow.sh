@@ -13,5 +13,9 @@ else
   mv OpenBazaar-0.1.0/ OpenBazaar
   rm -rf v"$1".zip
 
+  cd OpenBazaar
+
+  ./configure.sh
+
 fi
 
