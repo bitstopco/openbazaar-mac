@@ -4,30 +4,43 @@ option=$1
 
 if [ -z "$option" ]
 then
-  echo "Show help"
+  openbazaar help
 else
 
-  if [[ "$option" == "--help" ]] 
+  if [[ "$option" == "help" ]] 
   then
-    echo "im help"
+    echo "Usage: openbazaar COMMAND"
+    echo " "
+    echo "   run       #  run local node"
+    echo "   stop      #  stop local node"
+    echo "   destroy   #  delete local node"
+    echo " "
   fi
 
-  if [[ "$option" == "--run" ]] 
+  if [[ "$option" == "run" ]] 
   then
-    echo "lets rock and roll"
+    echo "Starting OpenBazaar"
+    cd ~/OpenBazaar
+    ./run.sh
   fi
 
-  if [[ "$option" == "--stop" ]] 
+  if [[ "$option" == "stop" ]] 
   then
-    echo "stop that train"
+    echo "Stoping OpenBazaar"
+    cd ~/OpenBazaar
+    ./stop.sh
   fi
 
-  if [[ "$option" == "--destroy" ]] 
+  if [[ "$option" == "destroy" ]] 
   then
     
     read -p "You are about to delete OpenBazaar from your computer, everything will de lost. Are you Sure you want to do this? (y/n) " RESP
     if [ "$RESP" = "y" ]; then
       echo "Deleting OpenBazaar"
+
+      rm -rf ~/OpenBazaar
+
+      echo "Done"
     else
       echo ":)"
     fi
