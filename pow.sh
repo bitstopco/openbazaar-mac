@@ -10,7 +10,7 @@ else
   cd ~/
   wget https://github.com/OpenBazaar/OpenBazaar/archive/v"$1".zip
   unzip v"$1".zip
-  mv OpenBazaar-0.1.0/ OpenBazaar
+  mv OpenBazaar-"$1"/ OpenBazaar
   rm -rf v"$1".zip
 
   cd OpenBazaar
