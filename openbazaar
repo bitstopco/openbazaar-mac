@@ -38,6 +38,8 @@ else
     if [ "$RESP" = "y" ]; then
       echo "Deleting OpenBazaar"
 
+      openbazaar stop
+
       sudo rm -rf ~/OpenBazaar
 
       sudo rm -rf /usr/local/bin/openbazaar
