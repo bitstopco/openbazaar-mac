@@ -31,7 +31,8 @@ function installUbuntu {
 }
 
 if [[ $OSTYPE == darwin* ]] ; then
-  installMac
+  echo "$UNAME"
+  echo "mac"
 elif [[ $OSTYPE == linux-gnu || $OSTYPE == linux-gnueabihf ]]; then
   UNAME=$(uname -a)
   if [ -f /etc/arch-release ]; then
@@ -40,12 +41,35 @@ elif [[ $OSTYPE == linux-gnu || $OSTYPE == linux-gnueabihf ]]; then
           echo Found Raspberry Pi Arch Linux
           
       else
+          echo "$UNAME"
           echo Arch
       fi
   elif [ -f /etc/gentoo-release ]; then
     echo Portage
-  elif [ -f /etc/fedora-release ]; then
-    echo Fedora
+  elif [ -f "/etc/redhat-release" ]; then
+    
+    rhos="Fedora CentOS Red Hat"
+    for i in $rhos; do
+        
+      if [ ! -z "`/bin/grep $i /etc/redhat-release`" ]; then
+            
+        if [[ $i = "CentOS" ]]; then
+          echo "$UNAME"
+          echo "CentOS"
+
+        elif [[ $i = "Fedora" ]]; then
+          echo "$UNAME"
+          echo "Fedora"
+
+        elif [[ $i = "Red Hat" ]]; then
+          echo "$UNAME"
+          echo "Red Hat"
+
+        fi
+
+      fi
+    done
+    
   elif grep Raspbian /etc/os-release ; then
     echo Found Raspberry Pi Raspbian
   else
@@ -57,7 +81,9 @@ elif [[ $OSTYPE == linux-gnu || $OSTYPE == linux-gnueabihf ]]; then
       echo "yes"
     else
       # We cant find a previous installation.
-      installUbuntu
+      #installUbuntu
+      echo "$UNAME"
+      echo "Ubuntu"
     fi
 
   fi
