@@ -107,6 +107,11 @@ function installMac {
   ./env/bin/pip install -r requirements.txt
   ./env/bin/pip install ./pysqlcipher
 
+  wget https://raw.githubusercontent.com/bitstopco/openbazaar-mac/installer/openbazaar
+  chmod +x openbazaar
+  cp openbazaar /usr/local/bin/
+  rm -rf openbazaar
+
   doneMessage
 }
 
