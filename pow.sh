@@ -114,8 +114,17 @@ function installUbuntu {
 }
 
 if [[ $OSTYPE == darwin* ]] ; then
-  echo "$UNAME"
-  echo "mac"
+  
+  if [ -d ~/OpenBazaar -a ! -h ~/OpenBazaar ]
+  then
+    # We have an installation so lets update it
+    echo "yes"
+  else
+    # We cant find a previous installation.
+    echo "Installing on Mac"
+    installMac
+  fi
+
 elif [[ $OSTYPE == linux-gnu || $OSTYPE == linux-gnueabihf ]]; then
   UNAME=$(uname -a)
   if [ -f /etc/arch-release ]; then
@@ -156,8 +165,7 @@ elif [[ $OSTYPE == linux-gnu || $OSTYPE == linux-gnueabihf ]]; then
   elif grep Raspbian /etc/os-release ; then
     echo Found Raspberry Pi Raspbian
   else
-    echo Ubuntu
-
+    
     if [ -d ~/OpenBazaar -a ! -h ~/OpenBazaar ]
     then
       # We have an installation so lets update it
