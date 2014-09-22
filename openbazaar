@@ -21,7 +21,7 @@ else
   then
     echo "Starting OpenBazaar"
     cd ~/OpenBazaar
-    ./run.sh "$@"
+    ./run.sh "${*:2}"
   fi
 
   if [[ "$option" == "stop" ]] 
