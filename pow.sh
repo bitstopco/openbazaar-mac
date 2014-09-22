@@ -1,5 +1,13 @@
 #!/bin/bash
 
+set -e
+
+function command_exists {
+  #this should be a very portable way of checking if something is on the path
+  #usage: "if command_exists foo; then echo it exists; fi"
+  type "$1" &> /dev/null
+}
+
 function doneMessage {
   echo ""
   echo "OpenBazaar configuration finished."
@@ -19,6 +27,10 @@ function installUbuntu {
   do
     sudo apt-get -y install $package
   done
+
+  cd ~/
+  git clone https://github.com/OpenBazaar/OpenBazaar.git
+  cd OpenBazaar 
 
   if [ ! -d "./env" ]; then
     virtualenv env
@@ -69,7 +81,7 @@ elif [[ $OSTYPE == linux-gnu || $OSTYPE == linux-gnueabihf ]]; then
 
       fi
     done
-    
+
   elif grep Raspbian /etc/os-release ; then
     echo Found Raspberry Pi Raspbian
   else
@@ -81,9 +93,8 @@ elif [[ $OSTYPE == linux-gnu || $OSTYPE == linux-gnueabihf ]]; then
       echo "yes"
     else
       # We cant find a previous installation.
-      #installUbuntu
-      echo "$UNAME"
-      echo "Ubuntu"
+      echo "Installing on Ubuntu"
+      installUbuntu
     fi
 
   fi
