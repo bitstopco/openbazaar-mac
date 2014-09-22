@@ -8,6 +8,12 @@ function command_exists {
   type "$1" &> /dev/null
 }
 
+function openbazaarSource {
+  cd ~/
+  git clone https://github.com/OpenBazaar/OpenBazaar.git
+  cd OpenBazaar 
+}
+
 function doneMessage {
   echo ""
   echo "OpenBazaar configuration finished."
@@ -16,6 +22,73 @@ function doneMessage {
   echo ""
   echo ""
   echo ""
+}
+
+function installMac {
+  #print commands (useful for debugging)
+  #set -x  #disabled because the echos and stdout are verbose enough to see progress
+
+  #install brew if it is not installed, otherwise upgrade it
+  if ! command_exists brew ; then
+    echo "installing brew..."
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+  else
+    echo "updating, upgrading, checking brew..."
+    brew update
+    brewDoctor
+    brewUpgrade 
+    brew prune
+  fi
+  
+  #install gpg/sqlite3/python/wget if they aren't installed
+  for dep in gpg sqlite3 python wget git
+  do
+    if ! command_exists $dep ; then
+      brew install $dep
+    fi
+  done
+
+  #more brew prerequisites
+  brew install openssl zmq
+
+  openbazaarSource
+
+  #python prerequisites
+  #python may be owned by root, or it may be owned by the user
+  PYTHON_OWNER=$(stat -n -f %u `which python`)
+  if [ "$PYTHON_OWNER" == "0" ]; then
+    #root owns python
+    EASY_INSTALL="sudo easy_install"
+    PIP="sudo pip"
+  else
+    EASY_INSTALL="easy_install"
+    PIP="pip"
+  fi
+
+  #install pip if it is not installed
+  if ! command_exists pip ; then
+    $EASY_INSTALL pip
+  fi
+
+  #install python's virtualenv if it is not installed
+  if ! command_exists virtualenv ; then
+    $PIP install virtualenv
+  fi
+
+  #create a virtualenv for OpenBazaar
+  if [ ! -d "./env" ]; then
+    virtualenv env
+  fi
+
+  # set compile flags for brew's openssl instead of using brew link --force
+  export CFLAGS="-I$(brew --prefix openssl)/include"
+  export LDFLAGS="-L$(brew --prefix openssl)/lib"
+
+  #install python deps inside our virtualenv
+  ./env/bin/pip install -r requirements.txt
+  ./env/bin/pip install ./pysqlcipher
+
+  doneMessage
 }
 
 function installUbuntu {
@@ -28,9 +101,7 @@ function installUbuntu {
     sudo apt-get -y install $package
   done
 
-  cd ~/
-  git clone https://github.com/OpenBazaar/OpenBazaar.git
-  cd OpenBazaar 
+  openbazaarSource
 
   if [ ! -d "./env" ]; then
     virtualenv env
