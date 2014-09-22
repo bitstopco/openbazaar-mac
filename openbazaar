@@ -11,6 +11,7 @@ Primary help topics, type "openbazaar help:TOPIC" for more details:
 
   start         #  start local node
   stop          #  stop local node
+  update        #  update OpenBazaar
   destroy       #  delete local node
 
 EOF
@@ -54,13 +55,14 @@ then
   openbazaar help
 else
 
-  
+  if [[ "$option" == "help" ]] 
+  then
+    usage
+  fi  
 
   if [[ "$option" == "help:start" ]] 
   then
     usageStart
-  else
-    usage
   fi
 
   if [[ "$option" == "start" ]] 
@@ -75,6 +77,26 @@ else
     echo "Stoping OpenBazaar"
     cd ~/OpenBazaar
     ./stop.sh
+  fi
+
+  if [[ "$option" == "update" ]] 
+  then
+
+    read -p "Are you sure you want to update? (y/n) " RESP
+    if [ "$RESP" = "y" ]; then
+      echo "Updating OpenBazaar"
+
+      cd ~/OpenBazaar
+
+      ./stop.sh
+
+      git pull
+
+      echo "Done"
+    else
+      echo ":)"
+    fi
+
   fi
 
   if [[ "$option" == "destroy" ]] 
