@@ -23,7 +23,7 @@ function installUbuntu {
   set -x
 
   sudo apt-get -y update
-  for package in python-pip build-essential python-zmq rng-tools python-dev g++ libjpeg-dev zlib1g-dev sqlite3 openssl alien libssl-dev python-virtualenv lintian libjs-jquery git-core
+  for package in git-core python-pip build-essential python-zmq rng-tools python-dev g++ libjpeg-dev zlib1g-dev sqlite3 openssl alien libssl-dev python-virtualenv lintian libjs-jquery
   do
     sudo apt-get -y install $package
   done
