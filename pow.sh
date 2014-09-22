@@ -44,7 +44,7 @@ function brewUpgrade {
 
 function installMac {
   #print commands (useful for debugging)
-  set -x  #disabled because the echos and stdout are verbose enough to see progress
+  #set -x  #disabled because the echos and stdout are verbose enough to see progress
 
   #install brew if it is not installed, otherwise upgrade it
   if ! command_exists brew ; then
