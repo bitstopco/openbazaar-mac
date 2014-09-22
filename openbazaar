@@ -2,19 +2,65 @@
 
 option=$1
 
+function usage
+{
+cat << EOF
+Usage: openbazaar COMMAND [command-specific-options]
+  
+Primary help topics, type "openbazaar help:TOPIC" for more details:
+
+  start         #  start local node
+  stop          #  stop local node
+  destroy       #  delete local node
+
+EOF
+}
+
+function usageStart
+{
+cat << EOF
+Usage: openbazaar start
+  
+Start Node
+
+Example:
+  
+  openbazaar start -p 8884
+  
+  -h                       #  Help information
+  -o                       #  Seed Mode
+  -i                       #  Server Public IP
+  -p                       #  Server Public Port (default 12345)
+  -k                       #  Web Interface IP (default 127.0.0.1; use 0.0.0.0 for any)
+  -q                       #  Web Interface Port (default random)
+  -l                       #  Log file
+  -d                       #  Development mode
+  -n                       #  Number of Dev nodes to start up
+  -a                       #  Bitmessage API username
+  -b                       #  Bitmessage API password
+  -c                       #  Bitmessage API port
+  -u                       #  Market ID
+  -j                       #  Disable upnp
+  -s                       #  List of additional seeds
+  -f                       #  Path to database file (default db/ob.db)
+  --disable-open-browser   #  Don't open the default web browser when OpenBazaar starts
+  --disable-sqlite-crypt   #  Disable encryption on sqlite database
+
+EOF
+}
+
 if [ -z "$option" ]
 then
   openbazaar help
 else
 
-  if [[ "$option" == "help" ]] 
+  
+
+  if [[ "$option" == "help:start" ]] 
   then
-    echo "Usage: openbazaar COMMAND"
-    echo " "
-    echo "   run       #  run local node"
-    echo "   stop      #  stop local node"
-    echo "   destroy   #  delete local node"
-    echo " "
+    usageStart
+  else
+    usage
   fi
 
   if [[ "$option" == "run" ]] 
