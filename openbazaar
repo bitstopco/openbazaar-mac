@@ -63,7 +63,7 @@ else
     usage
   fi
 
-  if [[ "$option" == "run" ]] 
+  if [[ "$option" == "start" ]] 
   then
     echo "Starting OpenBazaar"
     cd ~/OpenBazaar
