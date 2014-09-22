@@ -17,11 +17,10 @@ function openbazaarSource {
 function doneMessage {
   echo ""
   echo "OpenBazaar configuration finished."
-  echo "type './run.sh; tail -f logs/production.log' to start your OpenBazaar servent instance and monitor logging output."
   echo ""
   echo ""
-  echo ""
-  echo ""
+
+  openbazaar help
 }
 
 
